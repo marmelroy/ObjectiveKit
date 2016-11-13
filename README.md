@@ -10,6 +10,54 @@ ObjectiveKit provides a Swift-friendly API for a set of powerful Objective C run
 
 ## Usage
 
+To use ObjectiveKit:
+
+Import ObjectiveKit at the top of your Swift file.
+
+```swift
+import ObjectiveKit
+```
+
+Then you will need to create an ObjectiveClass object for the class you want to modify or introspect. If using for a custom Swift class, make sure that it is exposed to the Objective C runtime using the @objc flag.
+```swift
+let viewClass = ObjectiveClass<UIView>()
+```
+
+### Modifying classes at runtime.
+ObjectiveKit to add / exchange methods for a class at runtime.
+
+You can add a pre-existing function from another class to your Objective class:
+```swift
+let viewClass = ObjectiveClass<UIView>()
+viewClass.addSelectorToClass(#selector(testSelector), from: self)
+let view = UIView()
+view.perform(#selector(testSelector))
+```
+
+Alternatively, you can add a method by providing a custom implementation with a closure:
+```swift
+let viewClass = ObjectiveClass<UIView>()
+viewClass.addMethodToClass(closureName, implementation: {
+    print("hello world")
+})
+let view = UIView()
+view.performMethod(closureName)
+```
+
+ObjectiveKit also supports exchanging selectors in the same class:
+```swift
+let viewClass = ObjectiveClass<UIView>()
+viewClass.exchangeSelector(#selector(UIView.layoutSubviews), with: #selector(UIView.xxx_layoutSubviews))
+```
+
+### Introspection.
+You can learn more about classes at runtime with these handy introspection methods:
+```swift
+let mapViewClass = ObjectiveClass<MKMapView>()
+let selectors = mapViewClass.allSelectors() // Returns an array of selectors.
+let properties = objectiveView.allProperties() // Returns an array of properties.
+let protocols = objectiveView.allProtocols() // Returns an array of protocols.
+```
 
 ### Setting up with [CocoaPods](http://cocoapods.org/?q=ObjectiveKit)
 ```ruby
