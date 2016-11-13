@@ -57,8 +57,8 @@ You can learn more about classes at runtime with these handy introspection metho
 ```swift
 let mapViewClass = ObjectiveClass<MKMapView>()
 let selectors = mapViewClass.allSelectors() // Returns an array of selectors.
-let properties = objectiveView.allProperties() // Returns an array of properties.
-let protocols = objectiveView.allProtocols() // Returns an array of protocols.
+let properties = mapViewClass.allProperties() // Returns an array of properties.
+let protocols = mapViewClass.allProtocols() // Returns an array of protocols.
 ```
 
 ## Setting up
