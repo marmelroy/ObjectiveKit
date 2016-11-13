@@ -61,6 +61,8 @@ let properties = objectiveView.allProperties() // Returns an array of properties
 let protocols = objectiveView.allProtocols() // Returns an array of protocols.
 ```
 
+## Setting up
+
 ### Setting up with [CocoaPods](http://cocoapods.org/?q=ObjectiveKit)
 ```ruby
 source 'https://github.com/CocoaPods/Specs.git'
