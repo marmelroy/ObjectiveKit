@@ -23,7 +23,8 @@ Then you will need to create an ObjectiveClass object for the class you want to 
 let viewClass = ObjectiveClass<UIView>()
 ```
 
-### Modifying classes at runtime.
+### Modifying classes at runtime
+
 ObjectiveKit to add / exchange methods for a class at runtime.
 
 You can add a pre-existing function from another class to your Objective class:
@@ -50,7 +51,8 @@ let viewClass = ObjectiveClass<UIView>()
 viewClass.exchangeSelector(#selector(UIView.layoutSubviews), with: #selector(UIView.xxx_layoutSubviews))
 ```
 
-### Introspection.
+### Introspection
+
 You can learn more about classes at runtime with these handy introspection methods:
 ```swift
 let mapViewClass = ObjectiveClass<MKMapView>()
