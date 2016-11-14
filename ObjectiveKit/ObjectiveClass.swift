@@ -21,6 +21,26 @@ public class ObjectiveClass <T: NSObject> {
 
     // MARK: Introspection
 
+
+    /// Get all instance variables implemented by the class.
+    ///
+    /// - Returns: An array of instance variables.
+    public func allIvars() -> [String] {
+        var count: CUnsignedInt = 0
+        var ivars = [String]()
+        let ivarList = class_copyIvarList(internalClass, &count)
+        for i in (0..<Int(count)) {
+            let unwrapped  = ivarList?[i].unsafelyUnwrapped
+            if let ivar = ivar_getName(unwrapped) {
+                let string = String(cString: ivar)
+                ivars.append(string)
+            }
+        }
+        free(ivarList)
+        return ivars
+    }
+
+
     /// Get all selectors implemented by the class.
     ///
     /// - Returns: An array of selectors.
