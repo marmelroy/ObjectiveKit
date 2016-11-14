@@ -8,28 +8,34 @@
 
 import Foundation
 
+/// A class created at runtime.
 public class RuntimeClass: NSObject {
 
     private var internalClass: AnyClass
+    private var registered: Bool = false
 
-    var registered: Bool = false
-
-    init(superclass: AnyClass = NSObject.classForCoder()) {
+    /// Init
+    ///
+    /// - Parameter superclass: Superclass to inherit from.
+    public init(superclass: AnyClass = NSObject.classForCoder()) {
         let name = NSUUID().uuidString
         self.internalClass = objc_allocateClassPair(superclass, name, 0)
     }
 
-    func registerClass() {
+    /// Register class. Required before usage. Happens automatically on allocate.
+    public func registerClass() {
         if registered == false {
             registered =  true
             objc_registerClassPair(internalClass)
         }
     }
 
-    func allocate() -> NSObject {
+    /// Allocate an instance of a new custom class at runtime.
+    ///
+    /// - Returns: Custom class object.
+    public func allocate() -> NSObject {
         self.registerClass()
         return internalClass.alloc() as! NSObject
     }
-
 
 }

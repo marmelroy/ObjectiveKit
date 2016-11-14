@@ -76,8 +76,8 @@
 			isa = PBXGroup;
 			children = (
 				344C27781DD5CDCF008AA223 /* ObjectiveKit.h */,
-				344C27931DD6F4E1008AA223 /* RuntimeClass.swift */,
 				344C278F1DD5CFAB008AA223 /* ObjectiveClass.swift */,
+				344C27931DD6F4E1008AA223 /* RuntimeClass.swift */,
 				344C27791DD5CDCF008AA223 /* Info.plist */,
 			);
 			path = ObjectiveKit;
