@@ -1,4 +1,4 @@
-![ObjectiveKit - Swift friendly ObjC-Runtime functions ](https://cloud.githubusercontent.com/assets/889949/20255787/af3dced6-aa3f-11e6-9abb-f7b4a250f25c.png)
+![ObjectiveKit - Swift friendly ObjC-Runtime functions ](https://cloud.githubusercontent.com/assets/889949/20280667/af0f6410-aaad-11e6-8723-9e0817e1d656.png)
 
 
 [![Build Status](https://travis-ci.org/marmelroy/ObjectiveKit.svg?branch=master)](https://travis-ci.org/marmelroy/ObjectiveKit)
