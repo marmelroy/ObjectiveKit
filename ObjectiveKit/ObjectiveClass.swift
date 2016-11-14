@@ -80,8 +80,8 @@ public class ObjectiveClass <T: NSObject> {
     /// - Parameters:
     ///   - selector: Selector.
     ///   - object: Object implementing the selector.
-    public func addSelectorToClass(_ selector: Selector, from object: NSObject) {
-        guard let method = class_getInstanceMethod(object.classForCoder, selector), let implementation = method_getImplementation(method), let typeEncoding = method_getTypeEncoding(method) else {
+    public func addSelectorToClass(_ selector: Selector, fromClass originalClass: AnyClass) {
+        guard let method = class_getInstanceMethod(originalClass, selector), let implementation = method_getImplementation(method), let typeEncoding = method_getTypeEncoding(method) else {
             return
         }
         let string = String(cString: typeEncoding)
@@ -118,7 +118,7 @@ public extension NSObject {
 
     /// A convenience method to perform selectors by identifier strings.
     ///
-    /// - Parameter identifier: Selector name. 
+    /// - Parameter identifier: Selector name.
     public func performMethod(_ identifier: String) {
         perform(NSSelectorFromString(identifier))
     }

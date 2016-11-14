@@ -45,7 +45,7 @@ import MapKit
         let view = UIView()
         XCTAssertFalse(view.responds(to: #selector(testSelector)))
         let objectiveView = ObjectiveClass<UIView>()
-        objectiveView.addSelectorToClass(#selector(testSelector), from: self)
+        objectiveView.addSelectorToClass(#selector(testSelector), fromClass: self.classForCoder)
         XCTAssert(view.responds(to: #selector(testSelector)))
     }
 

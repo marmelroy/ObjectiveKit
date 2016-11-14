@@ -18,9 +18,22 @@ Import ObjectiveKit at the top of your Swift file.
 import ObjectiveKit
 ```
 
-Then you will need to create an ObjectiveClass object for the class you want to modify or introspect. If using for a custom Swift class, make sure that it is exposed to the Objective C runtime using the @objc flag.
+To access the functionality of ObjectiveKit you will need to create an ObjectiveClass object typed for the class you want to modify or introspect:
+
 ```swift
 let viewClass = ObjectiveClass<UIView>()
+```
+
+If using for a custom Swift class, make sure that it inherits at some point from NSObject and that it is exposed to the Objective C runtime using the @objc flag.
+
+### Introspection
+
+You can learn more about classes at runtime with these handy introspection methods:
+```swift
+let mapViewClass = ObjectiveClass<MKMapView>()
+let selectors = mapViewClass.allSelectors() // Returns an array of selectors.
+let properties = mapViewClass.allProperties() // Returns an array of properties.
+let protocols = mapViewClass.allProtocols() // Returns an array of protocols.
 ```
 
 ### Modifying classes at runtime
@@ -30,7 +43,7 @@ ObjectiveKit to add / exchange methods for a class at runtime.
 You can add a pre-existing function from another class to your Objective class:
 ```swift
 let viewClass = ObjectiveClass<UIView>()
-viewClass.addSelectorToClass(#selector(testSelector), from: self)
+viewClass.addSelectorToClass(#selector(testSelector), fromClass: self.classForCoder)
 let view = UIView()
 view.perform(#selector(testSelector))
 ```
@@ -49,16 +62,6 @@ ObjectiveKit also supports exchanging selectors in the same class:
 ```swift
 let viewClass = ObjectiveClass<UIView>()
 viewClass.exchangeSelector(#selector(UIView.layoutSubviews), with: #selector(UIView.xxx_layoutSubviews))
-```
-
-### Introspection
-
-You can learn more about classes at runtime with these handy introspection methods:
-```swift
-let mapViewClass = ObjectiveClass<MKMapView>()
-let selectors = mapViewClass.allSelectors() // Returns an array of selectors.
-let properties = mapViewClass.allProperties() // Returns an array of properties.
-let protocols = mapViewClass.allProtocols() // Returns an array of protocols.
 ```
 
 ## Setting up
