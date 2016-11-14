@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		344553061DDA6C1B007852A1 /* RuntimeModification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344553051DDA6C1B007852A1 /* RuntimeModification.swift */; };
 		344C277F1DD5CDCF008AA223 /* ObjectiveKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 344C27751DD5CDCF008AA223 /* ObjectiveKit.framework */; };
 		344C27841DD5CDCF008AA223 /* ObjectiveKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344C27831DD5CDCF008AA223 /* ObjectiveKitTests.swift */; };
 		344C27861DD5CDCF008AA223 /* ObjectiveKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 344C27781DD5CDCF008AA223 /* ObjectiveKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -25,6 +26,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		344553051DDA6C1B007852A1 /* RuntimeModification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuntimeModification.swift; sourceTree = "<group>"; };
 		344C27751DD5CDCF008AA223 /* ObjectiveKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ObjectiveKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		344C27781DD5CDCF008AA223 /* ObjectiveKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObjectiveKit.h; sourceTree = "<group>"; };
 		344C27791DD5CDCF008AA223 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 				344C27781DD5CDCF008AA223 /* ObjectiveKit.h */,
 				344C278F1DD5CFAB008AA223 /* ObjectiveClass.swift */,
 				344C27931DD6F4E1008AA223 /* RuntimeClass.swift */,
+				344553051DDA6C1B007852A1 /* RuntimeModification.swift */,
 				344C27791DD5CDCF008AA223 /* Info.plist */,
 			);
 			path = ObjectiveKit;
@@ -206,6 +209,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				344C27901DD5CFAB008AA223 /* ObjectiveClass.swift in Sources */,
+				344553061DDA6C1B007852A1 /* RuntimeModification.swift in Sources */,
 				344C27941DD6F4E1008AA223 /* RuntimeClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

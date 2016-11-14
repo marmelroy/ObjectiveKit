@@ -49,6 +49,14 @@ import MapKit
         XCTAssert(view.responds(to: #selector(testSelector)))
     }
 
+    func testRuntimeClass() {
+        let runtimeClass = RuntimeClass()
+        runtimeClass.addIvar("test", type: .Float)
+        let runtimeObject = runtimeClass.allocate()
+        runtimeObject.setValue(4.0, forKey: "test")
+        XCTAssert(runtimeObject.value(forKey: "test") as? Float == 4.0)
+    }
+
     func testIntrospection() {
         let objectiveView = ObjectiveClass<MKMapView>()
         let ivars = objectiveView.allIvars()

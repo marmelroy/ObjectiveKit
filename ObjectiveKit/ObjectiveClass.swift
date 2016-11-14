@@ -11,16 +11,18 @@ import Foundation
 typealias ImplementationBlock = @convention(block) () -> Void
 
 /// An object that allows you to introspect and modify classes through the ObjC runtime.
-public class ObjectiveClass <T: NSObject> {
+public class ObjectiveClass <T: NSObject>: ObjectiveKitRuntimeModification {
 
-    private var internalClass: AnyClass
+    public var internalClass: AnyClass
 
-    init() {
+    // MARK: Lifecycle
+
+    /// Init
+    public init() {
         self.internalClass = T.classForCoder()
     }
 
     // MARK: Introspection
-
 
     /// Get all instance variables implemented by the class.
     ///
@@ -93,55 +95,6 @@ public class ObjectiveClass <T: NSObject> {
         return properties
     }
 
-    // MARK: Runtime modification
-
-    /// Add a selector that is implemented on another object to the current class.
-    ///
-    /// - Parameters:
-    ///   - selector: Selector.
-    ///   - object: Object implementing the selector.
-    public func addSelectorToClass(_ selector: Selector, fromClass originalClass: AnyClass) {
-        guard let method = class_getInstanceMethod(originalClass, selector), let implementation = method_getImplementation(method), let typeEncoding = method_getTypeEncoding(method) else {
-            return
-        }
-        let string = String(cString: typeEncoding)
-        class_addMethod(internalClass, selector, implementation, string)
-    }
-
-    /// Add a custom method to the current class.
-    ///
-    /// - Parameters:
-    ///   - identifier: Selector name.
-    ///   - implementation: Implementation as a closure.
-    public func addMethodToClass(_ identifier: String, implementation: ImplementationBlock) {
-        let blockObject = unsafeBitCast(implementation, to: AnyObject.self)
-        let implementation = imp_implementationWithBlock(blockObject)
-        let selector = NSSelectorFromString(identifier)
-        let encoding = "v@:f"
-        class_addMethod(internalClass, selector, implementation, encoding)
-    }
-
-    /// Exchange selectors implemented in the current class.
-    ///
-    /// - Parameters:
-    ///   - aSelector: Selector.
-    ///   - otherSelector: Selector.
-    public func exchangeSelector(_ aSelector: Selector, with otherSelector: Selector) {
-        let method = class_getInstanceMethod(internalClass, aSelector)
-        let swizzledMethod = class_getInstanceMethod(internalClass, otherSelector)
-        method_exchangeImplementations(method, swizzledMethod)
-    }
-
-}
-
-public extension NSObject {
-
-    /// A convenience method to perform selectors by identifier strings.
-    ///
-    /// - Parameter identifier: Selector name.
-    public func performMethod(_ identifier: String) {
-        perform(NSSelectorFromString(identifier))
-    }
 }
 
 
