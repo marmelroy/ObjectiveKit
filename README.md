@@ -31,10 +31,10 @@ If using for a custom Swift class, make sure that it inherits at some point from
 You can learn more about classes at runtime with these handy introspection methods:
 ```swift
 let mapViewClass = ObjectiveClass<MKMapView>()
-let ivars = mapViewClass.allIvars() // Returns an array of selectors.
-let selectors = mapViewClass.allSelectors() // Returns an array of selectors.
-let properties = mapViewClass.allProperties() // Returns an array of properties.
-let protocols = mapViewClass.allProtocols() // Returns an array of protocols.
+let ivars = mapViewClass.ivars() // Returns an array of selectors.
+let selectors = mapViewClass.selectors() // Returns an array of selectors.
+let properties = mapViewClass.properties() // Returns an array of properties.
+let protocols = mapViewClass.protocols() // Returns an array of protocols.
 ```
 
 ### Modifying classes at runtime
@@ -42,7 +42,7 @@ let protocols = mapViewClass.allProtocols() // Returns an array of protocols.
 Add a pre-existing function from another class to your Objective class:
 ```swift
 let viewClass = ObjectiveClass<UIView>()
-viewClass.addSelectorToClass(#selector(testSelector), fromClass: self.classForCoder)
+viewClass.addSelector(#selector(testSelector), from: self.classForCoder)
 let view = UIView()
 view.perform(#selector(testSelector))
 ```
@@ -50,7 +50,7 @@ view.perform(#selector(testSelector))
 Add a method by providing a custom implementation with a closure:
 ```swift
 let viewClass = ObjectiveClass<UIView>()
-viewClass.addMethodToClass(closureName, implementation: {
+viewClass.addMethod(closureName, implementation: {
     print("hello world")
 })
 let view = UIView()
