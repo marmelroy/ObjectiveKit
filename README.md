@@ -31,7 +31,7 @@ If using for a custom Swift class, make sure that it inherits at some point from
 You can learn more about classes at runtime with these handy introspection methods:
 ```swift
 let mapViewClass = ObjectiveClass<MKMapView>()
-let ivars = mapViewClass.ivars() // Returns an array of selectors.
+let ivars = mapViewClass.ivars() // Returns an array of ivars.
 let selectors = mapViewClass.selectors() // Returns an array of selectors.
 let properties = mapViewClass.properties() // Returns an array of properties.
 let protocols = mapViewClass.protocols() // Returns an array of protocols.
