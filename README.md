@@ -2,7 +2,6 @@
 
 
 [![Build Status](https://travis-ci.org/marmelroy/ObjectiveKit.svg?branch=master)](https://travis-ci.org/marmelroy/ObjectiveKit)
-[![Version](http://img.shields.io/cocoapods/v/ObjectiveKit.svg)](http://cocoapods.org/?q=ObjectiveKit)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 # ObjectiveKit
