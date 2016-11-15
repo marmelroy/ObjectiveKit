@@ -19,14 +19,14 @@ public protocol ObjectiveKitRuntimeModification {
     /// - Parameters:
     ///   - selector: Selector.
     ///   - originalClass: Object implementing the selector.
-    func addSelectorToClass(_ selector: Selector, fromClass originalClass: AnyClass)
+    func addSelector(_ selector: Selector, from originalClass: AnyClass)
 
     /// Add a custom method to the current class.
     ///
     /// - Parameters:
     ///   - identifier: Selector name.
     ///   - implementation: Implementation as a closure.
-    func addMethodToClass(_ identifier: String, implementation: ImplementationBlock)
+    func addMethod(_ identifier: String, implementation: ImplementationBlock)
 
     /// Exchange selectors implemented in the current class.
     ///
@@ -39,7 +39,7 @@ public protocol ObjectiveKitRuntimeModification {
 
 extension ObjectiveKitRuntimeModification {
 
-    public func addSelectorToClass(_ selector: Selector, fromClass originalClass: AnyClass) {
+    public func addSelector(_ selector: Selector, from originalClass: AnyClass) {
         guard let method = class_getInstanceMethod(originalClass, selector), let implementation = method_getImplementation(method), let typeEncoding = method_getTypeEncoding(method) else {
             return
         }
@@ -47,7 +47,7 @@ extension ObjectiveKitRuntimeModification {
         class_addMethod(internalClass, selector, implementation, string)
     }
 
-    public func addMethodToClass(_ identifier: String, implementation: ImplementationBlock) {
+    public func addMethod(_ identifier: String, implementation: ImplementationBlock) {
         let blockObject = unsafeBitCast(implementation, to: AnyObject.self)
         let implementation = imp_implementationWithBlock(blockObject)
         let selector = NSSelectorFromString(identifier)

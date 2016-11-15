@@ -77,7 +77,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "39"
             endingLineNumber = "39"
-            landmarkName = "allIvars()"
+            landmarkName = "ivars()"
             landmarkType = "7">
             <Locations>
                <Location

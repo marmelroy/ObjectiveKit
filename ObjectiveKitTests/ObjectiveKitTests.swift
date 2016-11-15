@@ -33,7 +33,7 @@ import MapKit
     func testAddClosure() {
         let methodExpectation = expectation(description: "Method was called")
         let objectiveView = ObjectiveClass<UIView>()
-        objectiveView.addMethodToClass(closureName, implementation: {
+        objectiveView.addMethod(closureName, implementation: {
             methodExpectation.fulfill()
         })
         let view = UIView()
@@ -45,7 +45,7 @@ import MapKit
         let view = UIView()
         XCTAssertFalse(view.responds(to: #selector(testSelector)))
         let objectiveView = ObjectiveClass<UIView>()
-        objectiveView.addSelectorToClass(#selector(testSelector), fromClass: self.classForCoder)
+        objectiveView.addSelector(#selector(testSelector), from: self.classForCoder)
         XCTAssert(view.responds(to: #selector(testSelector)))
     }
 
@@ -59,13 +59,13 @@ import MapKit
 
     func testIntrospection() {
         let objectiveView = ObjectiveClass<MKMapView>()
-        let ivars = objectiveView.allIvars()
+        let ivars = objectiveView.ivars()
         XCTAssert(ivars.contains("_camera"))
-        let selectors = objectiveView.allSelectors()
+        let selectors = objectiveView.selectors()
         XCTAssert(selectors.contains(NSSelectorFromString("layoutSubviews")))
-        let protocols = objectiveView.allProtocols()
+        let protocols = objectiveView.protocols()
         XCTAssert(protocols.contains("MKAnnotationManagerDelegate"))
-        let properties = objectiveView.allProperties()
+        let properties = objectiveView.properties()
         XCTAssert(properties.contains("mapRegion"))
     }
 

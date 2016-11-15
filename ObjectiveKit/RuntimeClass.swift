@@ -43,7 +43,7 @@ public class RuntimeClass: NSObject, ObjectiveKitRuntimeModification {
 
 
     /// Register class. Required before usage. Happens automatically on allocate.
-    public func registerClass() {
+    public func register() {
         if registered == false {
             registered =  true
             objc_registerClassPair(internalClass)
@@ -54,7 +54,7 @@ public class RuntimeClass: NSObject, ObjectiveKitRuntimeModification {
     ///
     /// - Returns: Custom class object.
     public func allocate() -> NSObject {
-        self.registerClass()
+        self.register()
         return internalClass.alloc() as! NSObject
     }
 

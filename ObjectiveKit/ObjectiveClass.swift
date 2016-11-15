@@ -27,7 +27,7 @@ public class ObjectiveClass <T: NSObject>: ObjectiveKitRuntimeModification {
     /// Get all instance variables implemented by the class.
     ///
     /// - Returns: An array of instance variables.
-    public func allIvars() -> [String] {
+    public func ivars() -> [String] {
         var count: CUnsignedInt = 0
         var ivars = [String]()
         let ivarList = class_copyIvarList(internalClass, &count)
@@ -46,7 +46,7 @@ public class ObjectiveClass <T: NSObject>: ObjectiveKitRuntimeModification {
     /// Get all selectors implemented by the class.
     ///
     /// - Returns: An array of selectors.
-    public func allSelectors() -> [Selector] {
+    public func selectors() -> [Selector] {
         var count: CUnsignedInt = 0
         var selectors = [Selector]()
         let methodList = class_copyMethodList(internalClass, &count)
@@ -63,7 +63,7 @@ public class ObjectiveClass <T: NSObject>: ObjectiveKitRuntimeModification {
     /// Get all protocols implemented by the class.
     ///
     /// - Returns: An array of protocol names.
-    public func allProtocols() -> [String] {
+    public func protocols() -> [String] {
         var count: CUnsignedInt = 0
         var protocols = [String]()
         let protocolList = class_copyProtocolList(internalClass, &count)
@@ -80,7 +80,7 @@ public class ObjectiveClass <T: NSObject>: ObjectiveKitRuntimeModification {
     /// Get all properties implemented by the class.
     ///
     /// - Returns: An array of property names.
-    public func allProperties() -> [String] {
+    public func properties() -> [String] {
         var count: CUnsignedInt = 0
         var properties = [String]()
         let propertyList = class_copyPropertyList(internalClass, &count)
