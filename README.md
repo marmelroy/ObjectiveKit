@@ -17,13 +17,12 @@ Import ObjectiveKit at the top of your Swift file.
 import ObjectiveKit
 ```
 
-To access the functionality of ObjectiveKit you will need to create an ObjectiveClass object typed for the class you want to modify or introspect:
-
+The next step is to create an ObjectiveClass object typed for the class you want to modify or introspect:
 ```swift
 let viewClass = ObjectiveClass<UIView>()
 ```
 
-If using for a custom Swift class, make sure that it inherits at some point from NSObject and that it is exposed to the Objective C runtime using the @objc flag.
+If using ObjectiveKit on a custom Swift class, make sure that it inherits at some point from NSObject and that it is exposed to the Objective C runtime using the @objc flag.
 
 ### Introspection
 
@@ -38,7 +37,7 @@ let protocols = mapViewClass.protocols() // Returns an array of protocols.
 
 ### Modifying classes at runtime
 
-Add a pre-existing function from another class to your Objective class:
+Add a pre-existing selector from another class to your ObjectiveClass:
 ```swift
 let viewClass = ObjectiveClass<UIView>()
 viewClass.addSelector(#selector(testSelector), from: self.classForCoder)
@@ -46,7 +45,7 @@ let view = UIView()
 view.perform(#selector(testSelector))
 ```
 
-Add a method by providing a custom implementation with a closure:
+Add a custom method by providing the implementation with a closure:
 ```swift
 let viewClass = ObjectiveClass<UIView>()
 viewClass.addMethod(closureName, implementation: {
