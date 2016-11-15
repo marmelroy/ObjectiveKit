@@ -1,8 +1,5 @@
 ![ObjectiveKit - Swift friendly ObjC-Runtime functions ](https://cloud.githubusercontent.com/assets/889949/20305900/0e2db7c8-ab38-11e6-8aea-3556c34bfd21.png)
 
-[![Build Status](https://travis-ci.org/marmelroy/ObjectiveKit.svg?branch=master)](https://travis-ci.org/marmelroy/ObjectiveKit)
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-
 # ObjectiveKit
 ObjectiveKit provides a Swift friendly API for a set of powerful Objective C runtime functions.
 
