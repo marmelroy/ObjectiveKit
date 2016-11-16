@@ -59,13 +59,13 @@ import MapKit
 
     func testIntrospection() {
         let objectiveView = ObjectiveClass<MKMapView>()
-        let ivars = objectiveView.ivars()
+        let ivars = objectiveView.ivars
         XCTAssert(ivars.contains("_camera"))
-        let selectors = objectiveView.selectors()
+        let selectors = objectiveView.selectors
         XCTAssert(selectors.contains(NSSelectorFromString("layoutSubviews")))
-        let protocols = objectiveView.protocols()
+        let protocols = objectiveView.protocols
         XCTAssert(protocols.contains("MKAnnotationManagerDelegate"))
-        let properties = objectiveView.properties()
+        let properties = objectiveView.properties
         XCTAssert(properties.contains("mapRegion"))
     }
 

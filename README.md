@@ -24,10 +24,10 @@ If using ObjectiveKit on a custom Swift class, make sure that it inherits at som
 You can learn more about classes at runtime with these handy introspection methods:
 ```swift
 let mapViewClass = ObjectiveClass<MKMapView>()
-let ivars = mapViewClass.ivars() // Returns an array of ivars.
-let selectors = mapViewClass.selectors() // Returns an array of selectors.
-let properties = mapViewClass.properties() // Returns an array of properties.
-let protocols = mapViewClass.protocols() // Returns an array of protocols.
+let ivars = mapViewClass.ivars // An array of ivars.
+let selectors = mapViewClass.selectors // An array of selectors.
+let properties = mapViewClass.properties // An array of properties.
+let protocols = mapViewClass.protocols // An array of protocols.
 ```
 
 ### Modifying classes at runtime
