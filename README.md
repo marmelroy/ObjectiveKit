@@ -71,7 +71,7 @@ runtimeObject.setValue(4.0, forKey: ivarName)
 ### Setting up with [CocoaPods](http://cocoapods.org/?q=ObjectiveKit)
 ```ruby
 source 'https://github.com/CocoaPods/Specs.git'
-pod 'ObjectiveKit', '~> 0.1'
+pod 'ObjectiveKit', '~> 0.2'
 ```
 
 ### Setting up with Carthage
