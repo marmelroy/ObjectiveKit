@@ -44,10 +44,9 @@ public class RuntimeClass: NSObject, ObjectiveKitRuntimeModification {
 
     /// Register class. Required before usage. Happens automatically on allocate.
     public func register() {
-        if registered == false {
-            registered =  true
-            objc_registerClassPair(internalClass)
-        }
+        guard registered == false else { return }
+        registered =  true
+        objc_registerClassPair(internalClass)
     }
 
     /// Allocate an instance of a new custom class at runtime.
@@ -79,12 +78,12 @@ public enum ObjectiveType: Int {
 
     func encoding() -> String {
         switch self {
-            case .NSString: return "@"
-            case .NSObject: return "@"
-            case .Float: return "f"
-            case .Int: return "i"
-            case .Double: return "d"
-            case .Void: return "v"
+        case .NSString: return "@"
+        case .NSObject: return "@"
+        case .Float: return "f"
+        case .Int: return "i"
+        case .Double: return "d"
+        case .Void: return "v"
         }
     }
 
