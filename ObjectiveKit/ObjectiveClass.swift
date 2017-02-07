@@ -10,14 +10,6 @@ import Foundation
 
 typealias ImplementationBlock = @convention(block) () -> Void
 
-fileprivate func toStringDecorator<T>(_ f: @escaping (T!) -> UnsafePointer<Int8>!) -> (T!) -> String? {
-    return {
-        let name = f($0)
-        
-        return name.map { String(cString: $0) }
-    }
-}
-
 /// An object that allows you to introspect and modify classes through the ObjC runtime.
 public class ObjectiveClass <T: NSObject>: ObjectiveKitRuntimeModification {
 
@@ -36,21 +28,14 @@ public class ObjectiveClass <T: NSObject>: ObjectiveKitRuntimeModification {
     ///
     /// - Returns: An array of instance variables.
     public var ivars: [String] {
-        return self.runtimeStrings(
-            with: { class_copyIvarList($0, $1) },
-            transform: ivar_getName
-        )
+        return self.runtimeStrings(with: { class_copyIvarList($0, $1) }, transform: ivar_getName)
     }
-
 
     /// Get all selectors implemented by the class.
     ///
     /// - Returns: An array of selectors.
     public var selectors: [Selector]  {
-        return self.runtimeEntities(
-            with: { class_copyMethodList($0, $1) },
-            transform: { method_getName($0) }
-        )
+        return self.runtimeEntities(with: { class_copyMethodList($0, $1) }, transform: { method_getName($0) })
     }
 
     /// Get all protocols implemented by the class.
@@ -71,10 +56,7 @@ public class ObjectiveClass <T: NSObject>: ObjectiveKitRuntimeModification {
     ///
     /// - Returns: An array of property names.
     public var properties: [String] {
-        return self.runtimeStrings(
-            with: { class_copyPropertyList($0, $1) },
-            transform: property_getName
-        )
+        return self.runtimeStrings(with: { class_copyPropertyList($0, $1) }, transform: property_getName)
     }
     
     private func runtimeEntities<Type, Result>(
@@ -95,10 +77,14 @@ public class ObjectiveClass <T: NSObject>: ObjectiveKitRuntimeModification {
     
     private func runtimeStrings<Type>(
         with copyingGetter:(AnyClass?, UnsafeMutablePointer<UInt32>?) -> UnsafeMutablePointer<Type?>!,
-        transform: @escaping (Type!) -> UnsafePointer<Int8>!
+        transform: (Type!) -> UnsafePointer<Int8>!
     ) -> [String]
     {
-        return self.runtimeEntities(with: copyingGetter, transform: toStringDecorator(transform))
+        return self.runtimeEntities(with: copyingGetter) {
+            let name = transform($0)
+            
+            return name.map { String(cString: $0) }
+        }
     }
 }
 
