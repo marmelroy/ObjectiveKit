@@ -59,8 +59,9 @@ public class ObjectiveClass <T: NSObject>: ObjectiveKitRuntimeModification {
         return self.runtimeStrings(with: { class_copyPropertyList($0, $1) }, transform: property_getName)
     }
     
+    private typealias RuntimeCopyingGetter<Type> = (AnyClass?, UnsafeMutablePointer<UInt32>?) -> UnsafeMutablePointer<Type?>!
     private func runtimeEntities<Type, Result>(
-        with copyingGetter:(AnyClass?, UnsafeMutablePointer<UInt32>?) -> UnsafeMutablePointer<Type?>!,
+        with copyingGetter: RuntimeCopyingGetter<Type>,
         transform: (Type) -> Result?
     ) -> [Result]
     {
@@ -76,7 +77,7 @@ public class ObjectiveClass <T: NSObject>: ObjectiveKitRuntimeModification {
     }
     
     private func runtimeStrings<Type>(
-        with copyingGetter:(AnyClass?, UnsafeMutablePointer<UInt32>?) -> UnsafeMutablePointer<Type?>!,
+        with copyingGetter:RuntimeCopyingGetter<Type>,
         transform: (Type!) -> UnsafePointer<Int8>!
     ) -> [String]
     {
