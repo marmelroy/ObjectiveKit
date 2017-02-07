@@ -36,9 +36,9 @@ public class ObjectiveClass <T: NSObject>: ObjectiveKitRuntimeModification {
     ///
     /// - Returns: An array of instance variables.
     public var ivars: [String] {
-        return self.runtimeEntities(
+        return self.runtimeStrings(
             with: { class_copyIvarList($0, $1) },
-            transform: toStringDecorator(ivar_getName)
+            transform: ivar_getName
         )
     }
 
@@ -57,23 +57,23 @@ public class ObjectiveClass <T: NSObject>: ObjectiveKitRuntimeModification {
     ///
     /// - Returns: An array of protocol names.
     public var protocols: [String] {
-        return self.runtimeEntities(
+        return self.runtimeStrings(
             with: { (cls, count) -> UnsafeMutablePointer<Protocol?>! in
                 let raw = UnsafeRawPointer(class_copyProtocolList(cls, count))
                 let unsafeProtocols = raw?.assumingMemoryBound(to: (Protocol?).self)
                 
                 return UnsafeMutablePointer(mutating: unsafeProtocols)
             },
-            transform: toStringDecorator(protocol_getName))
+            transform: protocol_getName)
     }
 
     /// Get all properties implemented by the class.
     ///
     /// - Returns: An array of property names.
     public var properties: [String] {
-        return self.runtimeEntities(
+        return self.runtimeStrings(
             with: { class_copyPropertyList($0, $1) },
-            transform: toStringDecorator(property_getName)
+            transform: property_getName
         )
     }
     
@@ -91,6 +91,14 @@ public class ObjectiveClass <T: NSObject>: ObjectiveKitRuntimeModification {
         
         return UnsafeMutableBufferPointer(start: entities, count: count).flatMap { $0 }
             .flatMap(transform)
+    }
+    
+    private func runtimeStrings<Type>(
+        with copyingGetter:(AnyClass?, UnsafeMutablePointer<UInt32>?) -> UnsafeMutablePointer<Type?>!,
+        transform: @escaping (Type!) -> UnsafePointer<Int8>!
+    ) -> [String]
+    {
+        return self.runtimeEntities(with: copyingGetter, transform: toStringDecorator(transform))
     }
 }
 
