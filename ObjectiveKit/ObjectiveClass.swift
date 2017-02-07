@@ -43,8 +43,8 @@ public class ObjectiveClass <T: NSObject>: ObjectiveKitRuntimeModification {
     /// - Returns: An array of protocol names.
     public var protocols: [String] {
         return self.runtimeStrings(
-            with: { (cls, count) -> UnsafeMutablePointer<Protocol?>! in
-                let raw = UnsafeRawPointer(class_copyProtocolList(cls, count))
+            with: {
+                let raw = UnsafeRawPointer(class_copyProtocolList($0, $1))
                 let unsafeProtocols = raw?.assumingMemoryBound(to: (Protocol?).self)
                 
                 return UnsafeMutablePointer(mutating: unsafeProtocols)
