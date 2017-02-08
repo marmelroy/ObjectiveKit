@@ -13,6 +13,7 @@
 		344C27861DD5CDCF008AA223 /* ObjectiveKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 344C27781DD5CDCF008AA223 /* ObjectiveKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		344C27901DD5CFAB008AA223 /* ObjectiveClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344C278F1DD5CFAB008AA223 /* ObjectiveClass.swift */; };
 		344C27941DD6F4E1008AA223 /* RuntimeClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344C27931DD6F4E1008AA223 /* RuntimeClass.swift */; };
+		D7D1F6F71E4BAE4200C6E22E /* Optional+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D1F6F61E4BAE4200C6E22E /* Optional+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +36,7 @@
 		344C27851DD5CDCF008AA223 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		344C278F1DD5CFAB008AA223 /* ObjectiveClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectiveClass.swift; sourceTree = "<group>"; };
 		344C27931DD6F4E1008AA223 /* RuntimeClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuntimeClass.swift; sourceTree = "<group>"; };
+		D7D1F6F61E4BAE4200C6E22E /* Optional+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Optional+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 				344C27931DD6F4E1008AA223 /* RuntimeClass.swift */,
 				344553051DDA6C1B007852A1 /* RuntimeModification.swift */,
 				344C27791DD5CDCF008AA223 /* Info.plist */,
+				D7D1F6F61E4BAE4200C6E22E /* Optional+Extensions.swift */,
 			);
 			path = ObjectiveKit;
 			sourceTree = "<group>";
@@ -174,6 +177,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 344C276B1DD5CDCF008AA223;
 			productRefGroup = 344C27761DD5CDCF008AA223 /* Products */;
@@ -209,6 +213,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				344C27901DD5CFAB008AA223 /* ObjectiveClass.swift in Sources */,
+				D7D1F6F71E4BAE4200C6E22E /* Optional+Extensions.swift in Sources */,
 				344553061DDA6C1B007852A1 /* RuntimeModification.swift in Sources */,
 				344C27941DD6F4E1008AA223 /* RuntimeClass.swift in Sources */,
 			);

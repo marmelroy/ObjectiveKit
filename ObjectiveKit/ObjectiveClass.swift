@@ -12,6 +12,8 @@ typealias ImplementationBlock = @convention(block) () -> Void
 
 /// An object that allows you to introspect and modify classes through the ObjC runtime.
 public class ObjectiveClass <T: NSObject>: ObjectiveKitRuntimeModification {
+    
+    private typealias RuntimeCopyingGetter<Type> = (AnyClass?, UnsafeMutablePointer<UInt32>?) -> UnsafeMutablePointer<Type?>!
 
     public var internalClass: AnyClass
 
@@ -35,7 +37,7 @@ public class ObjectiveClass <T: NSObject>: ObjectiveKitRuntimeModification {
     ///
     /// - Returns: An array of selectors.
     public var selectors: [Selector]  {
-        return self.runtimeEntities(with: { class_copyMethodList($0, $1) }, transform: { method_getName($0) })
+        return self.runtimeEntities(with: { class_copyMethodList($0, $1) }, transform: method_getName)
     }
 
     /// Get all protocols implemented by the class.
@@ -43,13 +45,9 @@ public class ObjectiveClass <T: NSObject>: ObjectiveKitRuntimeModification {
     /// - Returns: An array of protocol names.
     public var protocols: [String] {
         return self.runtimeStrings(
-            with: {
-                let raw = UnsafeRawPointer(class_copyProtocolList($0, $1))
-                let unsafeProtocols = raw?.assumingMemoryBound(to: (Protocol?).self)
-                
-                return UnsafeMutablePointer(mutating: unsafeProtocols)
-            },
-            transform: protocol_getName)
+            with: { UnsafeMutablePointer(mutating: class_copyProtocolList($0, $1)) },
+            transform: protocol_getName
+        )
     }
 
     /// Get all properties implemented by the class.
@@ -59,7 +57,6 @@ public class ObjectiveClass <T: NSObject>: ObjectiveKitRuntimeModification {
         return self.runtimeStrings(with: { class_copyPropertyList($0, $1) }, transform: property_getName)
     }
     
-    private typealias RuntimeCopyingGetter<Type> = (AnyClass?, UnsafeMutablePointer<UInt32>?) -> UnsafeMutablePointer<Type?>!
     private func runtimeEntities<Type, Result>(
         with copyingGetter: RuntimeCopyingGetter<Type>,
         transform: (Type) -> Result?
@@ -72,21 +69,14 @@ public class ObjectiveClass <T: NSObject>: ObjectiveKitRuntimeModification {
         
         defer { entities?.deallocate(capacity: count) }
         
-        return UnsafeMutableBufferPointer(start: entities, count: count).flatMap { $0 }
-            .flatMap(transform)
+        return UnsafeMutableBufferPointer(start: entities, count: count).flatMap(identity).flatMap(transform)
     }
     
     private func runtimeStrings<Type>(
-        with copyingGetter:RuntimeCopyingGetter<Type>,
+        with copyingGetter: RuntimeCopyingGetter<Type>,
         transform: (Type!) -> UnsafePointer<Int8>!
     ) -> [String]
     {
-        return self.runtimeEntities(with: copyingGetter) {
-            let name = transform($0)
-            
-            return name.map { String(cString: $0) }
-        }
+        return self.runtimeEntities(with: copyingGetter) { pure(transform($0)).map { String(cString: $0) } }
     }
 }
-
-
