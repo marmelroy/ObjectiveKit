@@ -57,10 +57,13 @@ public class ObjectiveClass <T: NSObject>: ObjectiveKitRuntimeModification {
         return self.runtimeStrings(with: { class_copyPropertyList($0, $1) }, transform: property_getName)
     }
     
+    // MARK: Private
+    
     private func runtimeEntities<Type, Result>(
         with copyingGetter: RuntimeCopyingGetter<Type>,
         transform: (Type) -> Result?
-    ) -> [Result]
+    )
+        -> [Result]
     {
         var cCount: CUnsignedInt = 0
         
@@ -69,14 +72,19 @@ public class ObjectiveClass <T: NSObject>: ObjectiveKitRuntimeModification {
         
         defer { entities?.deallocate(capacity: count) }
         
-        return UnsafeMutableBufferPointer(start: entities, count: count).flatMap(identity).flatMap(transform)
+        return UnsafeMutableBufferPointer(start: entities, count: count)
+            .flatMap(identity)
+            .flatMap(transform)
     }
     
     private func runtimeStrings<Type>(
         with copyingGetter: RuntimeCopyingGetter<Type>,
         transform: (Type!) -> UnsafePointer<Int8>!
-    ) -> [String]
+    )
+        -> [String]
     {
-        return self.runtimeEntities(with: copyingGetter) { pure(transform($0)).map { String(cString: $0) } }
+        return self.runtimeEntities(with: copyingGetter) {
+            pure(transform($0)).map(String.init(cString:))
+        }
     }
 }
