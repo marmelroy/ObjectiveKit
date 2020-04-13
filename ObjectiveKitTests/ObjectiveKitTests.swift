@@ -7,23 +7,20 @@
 //
 
 import XCTest
-import MapKit
 @testable import ObjectiveKit
 
-@objc class Subview: UIView {
+@objc protocol CustomProtocol { }
 
-    dynamic func testSelector() {
+class Subview: UIView, CustomProtocol {
+    @objc var customVar = "something"
+    @objc let customLet = "something"
+
+    @objc func customSelector() {
         print("test selector")
     }
-
-    dynamic func swizzledSelector(){
-        print("swizzled selector")
-    }
-
 }
 
-@objc class ObjectiveKitTests: XCTestCase {
-
+class ObjectiveKitTests: XCTestCase {
     let closureName = "random"
 
     dynamic func testSelector() {
@@ -33,7 +30,7 @@ import MapKit
     func testAddClosure() {
         let methodExpectation = expectation(description: "Method was called")
         let objectiveView = ObjectiveClass<UIView>()
-        objectiveView.addMethod(closureName, implementation: {
+        objectiveView.addMethod(closureName, implementation: { _ in
             methodExpectation.fulfill()
         })
         let view = UIView()
@@ -58,16 +55,14 @@ import MapKit
     }
 
     func testIntrospection() {
-        let objectiveView = ObjectiveClass<MKMapView>()
+        let objectiveView = ObjectiveClass<Subview>()
         let ivars = objectiveView.ivars
-        XCTAssert(ivars.contains("_camera"))
+        XCTAssertEqual(ivars, ["customVar", "customLet"])
         let selectors = objectiveView.selectors
-        XCTAssert(selectors.contains(NSSelectorFromString("layoutSubviews")))
+        XCTAssertEqual(selectors.last, NSSelectorFromString("customSelector"))
         let protocols = objectiveView.protocols
-        XCTAssert(protocols.contains("MKAnnotationManagerDelegate"))
+        XCTAssertEqual(protocols, ["ObjectiveKitTests.CustomProtocol"])
         let properties = objectiveView.properties
-        XCTAssert(properties.contains("mapRegion"))
+        XCTAssertEqual(properties, ["customVar", "customLet"])
     }
-
-
 }
