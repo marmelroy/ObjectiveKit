@@ -8,10 +8,8 @@
 
 import Foundation
 
-typealias ImplementationBlock = @convention(block) () -> Void
-
 /// An object that allows you to introspect and modify classes through the ObjC runtime.
-public class ObjectiveClass <T: NSObject>: ObjectiveKitRuntimeModification {
+public class ObjectiveClass<T: NSObject>: ObjectiveKitRuntimeModification {
 
     public var internalClass: AnyClass
 
@@ -33,7 +31,7 @@ public class ObjectiveClass <T: NSObject>: ObjectiveKitRuntimeModification {
             var ivars = [String]()
             let ivarList = class_copyIvarList(internalClass, &count)
             for i in (0..<Int(count)) {
-                let unwrapped  = ivarList?[i].unsafelyUnwrapped
+                let unwrapped  = (ivarList?[i]).unsafelyUnwrapped
                 if let ivar = ivar_getName(unwrapped) {
                     let string = String(cString: ivar)
                     ivars.append(string)
@@ -44,7 +42,6 @@ public class ObjectiveClass <T: NSObject>: ObjectiveKitRuntimeModification {
         }
     }
 
-
     /// Get all selectors implemented by the class.
     ///
     /// - Returns: An array of selectors.
@@ -54,8 +51,8 @@ public class ObjectiveClass <T: NSObject>: ObjectiveKitRuntimeModification {
             var selectors = [Selector]()
             let methodList = class_copyMethodList(internalClass, &count)
             for i in (0..<Int(count)) {
-                let unwrapped  = methodList?[i].unsafelyUnwrapped
-                if let selector = method_getName(unwrapped) {
+                if let unwrapped = methodList?[i] {
+                    let selector = method_getName(unwrapped)
                     selectors.append(selector)
                 }
             }
@@ -73,8 +70,8 @@ public class ObjectiveClass <T: NSObject>: ObjectiveKitRuntimeModification {
             var protocols = [String]()
             let protocolList = class_copyProtocolList(internalClass, &count)
             for i in (0..<Int(count)) {
-                let unwrapped  = protocolList?[i].unsafelyUnwrapped
-                if let protocolName = protocol_getName(unwrapped) {
+                if let unwrapped  = protocolList?[i] {
+                    let protocolName = protocol_getName(unwrapped)
                     let string = String(cString: protocolName)
                     protocols.append(string)
                 }
@@ -92,8 +89,8 @@ public class ObjectiveClass <T: NSObject>: ObjectiveKitRuntimeModification {
             var properties = [String]()
             let propertyList = class_copyPropertyList(internalClass, &count)
             for i in (0..<Int(count)) {
-                let unwrapped  = propertyList?[i].unsafelyUnwrapped
-                if let propretyName = property_getName(unwrapped) {
+                if let unwrapped  = propertyList?[i] {
+                    let propretyName = property_getName(unwrapped)
                     let string = String(cString: propretyName)
                     properties.append(string)
                 }
@@ -102,7 +99,4 @@ public class ObjectiveClass <T: NSObject>: ObjectiveKitRuntimeModification {
             return properties
         }
     }
-
 }
-
-

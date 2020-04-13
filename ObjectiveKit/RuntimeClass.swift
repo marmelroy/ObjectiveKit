@@ -10,9 +10,7 @@ import Foundation
 
 /// A class created at runtime.
 public class RuntimeClass: NSObject, ObjectiveKitRuntimeModification {
-
     public var internalClass: AnyClass
-
     private var registered: Bool = false
 
     // MARK: Lifecycle
@@ -22,7 +20,10 @@ public class RuntimeClass: NSObject, ObjectiveKitRuntimeModification {
     /// - Parameter superclass: Superclass to inherit from.
     public init(superclass: AnyClass = NSObject.classForCoder()) {
         let name = NSUUID().uuidString
-        self.internalClass = objc_allocateClassPair(superclass, name, 0)
+        guard let internalClass = objc_allocateClassPair(superclass, name, 0) else {
+            fatalError("The class '\(superclass)' could not be created")
+        }
+        self.internalClass = internalClass
     }
 
     // MARK: Dynamic class creation
@@ -41,7 +42,6 @@ public class RuntimeClass: NSObject, ObjectiveKitRuntimeModification {
         class_addIvar(self.internalClass, name, size, UInt8(alignment), rawEncoding)
     }
 
-
     /// Register class. Required before usage. Happens automatically on allocate.
     public func register() {
         if registered == false {
@@ -57,9 +57,7 @@ public class RuntimeClass: NSObject, ObjectiveKitRuntimeModification {
         self.register()
         return internalClass.alloc() as! NSObject
     }
-
 }
-
 
 /// Objective Type
 ///
@@ -87,6 +85,4 @@ public enum ObjectiveType: Int {
             case .Void: return "v"
         }
     }
-
 }
-
