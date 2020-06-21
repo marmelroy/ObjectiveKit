@@ -72,10 +72,11 @@
 		344C276B1DD5CDCF008AA223 = {
 			isa = PBXGroup;
 			children = (
+				B4F33973249F2DA90054DFE5 /* Frameworks */,
 				344C27771DD5CDCF008AA223 /* ObjectiveKit */,
 				344C27821DD5CDCF008AA223 /* ObjectiveKitTests */,
 				344C27761DD5CDCF008AA223 /* Products */,
-				B4F33973249F2DA90054DFE5 /* Frameworks */,
+				B4F33977249F5F9A0054DFE5 /* Supporting Files */,
 			);
 			sourceTree = "<group>";
 		};
@@ -129,11 +130,7 @@
 		B4F33967249F0DCF0054DFE5 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				B4F3396B249F2BB60054DFE5 /* build.sh */,
 				344C27791DD5CDCF008AA223 /* Info.plist */,
-				B4F3396D249F2BC30054DFE5 /* LICENSE */,
-				B4F3396F249F2BD10054DFE5 /* ObjectiveKit.podspec */,
-				B4F33971249F2BDF0054DFE5 /* README.md */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -152,6 +149,17 @@
 				B4F33974249F2DA90054DFE5 /* MapKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B4F33977249F5F9A0054DFE5 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B4F3396B249F2BB60054DFE5 /* build.sh */,
+				B4F3396D249F2BC30054DFE5 /* LICENSE */,
+				B4F3396F249F2BD10054DFE5 /* ObjectiveKit.podspec */,
+				B4F33971249F2BDF0054DFE5 /* README.md */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
